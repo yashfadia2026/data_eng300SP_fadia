@@ -1,0 +1,13 @@
+{
+  "rmse": 3.1389063430326285,
+  "r2": 0.6345340709741798,
+  "num_test_rows": 8,
+  "features": [
+    "Weight",
+    "Drive Ratio",
+    "Horsepower",
+    "Displacement",
+    "Cylinders"
+  ],
+  "target": "MPG"
+}
