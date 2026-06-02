@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>lab8.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="apache-cassandra-tutorial">Apache Cassandra Tutorial</h1>
+<h2 id="learning-objectives">Learning Objectives</h2>
+<ul>
+<li>Explain what Apache Cassandra is and when it is useful.</li>
+<li>Compare Cassandra with relational databases and other NoSQL databases.</li>
+<li>Install and run Cassandra locally using Docker.</li>
+<li>Use <code>cqlsh</code> to create keyspaces, create tables, insert data, query data, update data, delete data, and export data.</li>
+<li>Complete a small hands-on lab using Cassandra Query Language, or CQL.</li>
+</ul>
+<h2 id="1-apache-cassandra">1. Apache Cassandra</h2>
+<p>Apache Cassandra is an open-source, distributed NoSQL database. It is often used when an application needs to handle a large amount of data across many machines while remaining available even if some machines fail.</p>
+<p>Cassandra is a wide-column database. It stores data in tables, but tables are usually designed around the queries the application needs to run.</p>
+<p>Cassandra uses <strong>CQL</strong>, or Cassandra Query Language. CQL looks similar to SQL because it uses familiar ideas such as tables, rows, columns, <code>SELECT</code>, <code>INSERT</code>, and <code>CREATE TABLE</code>.</p>
+<h2 id="cassandra-vs-relational-databases-and-other-nosql-databases">Cassandra vs. Relational Databases and Other NoSQL Databases</h2>
+<h3 id="cassandra-vs-relational-databases">Cassandra vs. Relational Databases</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Relational DB, e.g. PostgreSQL/MySQL</th>
+<th>Cassandra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data model</td>
+<td>Tables with normalized relationships</td>
+<td>Wide-column tables designed for queries</td>
+</tr>
+<tr>
+<td>Query language</td>
+<td>SQL</td>
+<td>CQL</td>
+</tr>
+<tr>
+<td>Joins</td>
+<td>Common</td>
+<td>Not supported in the same way</td>
+</tr>
+<tr>
+<td>Transactions</td>
+<td>Strong ACID transactions are common</td>
+<td>Limited transaction support; optimized for distributed availability</td>
+</tr>
+<tr>
+<td>Schema design</td>
+<td>Entity-first, normalize data</td>
+<td>Query-first, denormalize data</td>
+</tr>
+<tr>
+<td>Scaling</td>
+<td>Often vertical first, then sharding/replication</td>
+<td>Horizontal scaling is central</td>
+</tr>
+<tr>
+<td>Best for</td>
+<td>Complex queries, joins, reports, strict consistency</td>
+<td>Large-scale writes, high availability, predictable access patterns</td>
+</tr>
+</tbody>
+</table>
+<p>In a relational database, you usually design normalized tables first, then write queries using joins. In Cassandra, you usually start from the queries and design tables to answer those queries efficiently.</p>
+<h3 id="cassandra-vs-mongodb">Cassandra vs. MongoDB</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>MongoDB</th>
+<th>Cassandra</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type</td>
+<td>Document database</td>
+<td>Wide-column database</td>
+</tr>
+<tr>
+<td>Data unit</td>
+<td>JSON-like document</td>
+<td>Row in a partitioned table</td>
+</tr>
+<tr>
+<td>Flexible schema</td>
+<td>Very flexible</td>
+<td>Flexible columns, but table/query design is stricter</td>
+</tr>
+<tr>
+<td>Query model</td>
+<td>Rich document queries</td>
+<td>Query by partition key and clustering columns</td>
+</tr>
+<tr>
+<td>Common use cases</td>
+<td>Content management, product catalogs, app backends</td>
+<td>Time-series data, event logs, large-scale writes</td>
+</tr>
+</tbody>
+</table>
+<p>MongoDB is often easier when the data is naturally document-shaped and queries need flexibility. Cassandra is stronger when the workload is massive, distributed, write-heavy, and query patterns are known in advance.</p>
+<p>Cassandra is a good fit for:</p>
+<ul>
+<li>High-volume write-heavy workloads.</li>
+<li>Event logging.</li>
+<li>Time-series data.</li>
+<li>User activity tracking.</li>
+<li>Recommendation-event storage.</li>
+</ul>
+<p>Cassandra is usually not the best first choice for:</p>
+<ul>
+<li>Small applications with simple relational needs.</li>
+<li>Applications requiring many joins.</li>
+<li>Strong transactional consistency across many rows and tables.</li>
+</ul>
+<h2 id="2-core-concepts">2. Core concepts</h2>
+<h3 id="21-cluster-node-and-data-center">2.1. Cluster, Node, and Data Center</h3>
+<p>A Cassandra deployment is usually made of multiple machines.</p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Node</td>
+<td>A single Cassandra server.</td>
+</tr>
+<tr>
+<td>Cluster</td>
+<td>A group of Cassandra nodes working together.</td>
+</tr>
+<tr>
+<td>Data center</td>
+<td>A logical grouping of nodes, often corresponding to a physical region, cloud region, or availability zone.</td>
+</tr>
+<tr>
+<td>Keyspace</td>
+<td>Similar to a database namespace. It defines replication settings for tables.</td>
+</tr>
+<tr>
+<td>Table</td>
+<td>A collection of rows. Tables are designed around query patterns.</td>
+</tr>
+</tbody>
+</table>
+<p>For this tutorial, we will use a single-node local Cassandra instance through Docker. This is enough for learning CQL and basic data modeling.</p>
+<h3 id="22-keyspace">2.2. Keyspace</h3>
+<p>A <strong>keyspace</strong> is the top-level namespace in Cassandra. It stores tables and defines replication options. In CQL, <code>CREATE KEYSPACE</code> requires a replication configuration.</p>
+<p>Example</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> KEYSPACE demo
+<span class="hljs-keyword">WITH</span> replication <span class="hljs-operator">=</span> {
+  <span class="hljs-string">&#x27;class&#x27;</span>: <span class="hljs-string">&#x27;SimpleStrategy&#x27;</span>,
+  <span class="hljs-string">&#x27;replication_factor&#x27;</span>: <span class="hljs-number">1</span>
+};
+</div></code></pre>
+<h3 id="23-table-primary-key-partition-key-and-clustering-columns">2.3. Table, Primary Key, Partition Key, and Clustering Columns</h3>
+<p>Cassandra tables require a primary key. The primary key controls both uniqueness and data distribution.</p>
+<p>The partition key determines where data is stored in the cluster. Rows with the same partition key are stored together.</p>
+<h2 id="3-installation-guide">3. Installation Guide</h2>
+<p>This tutorial uses Docker because it is the simplest and most reproducible setup for students. Let's first open the EC2 instance and check the docker status:</p>
+<pre class="hljs"><code><div>docker --version
+</div></code></pre>
+<p>Then set the docker permission by using the command</p>
+<pre class="hljs"><code><div>sudo chmod 666 /var/run/docker.sock 
+</div></code></pre>
+<p>Pull the Cassandra Docker Image:</p>
+<pre class="hljs"><code><div>docker pull cassandra:latest
+</div></code></pre>
+<p>Start Cassandra</p>
+<pre class="hljs"><code><div>docker run --name cassandra-demo -p 9042:9042 -d cassandra:latest
+</div></code></pre>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docker run</code></td>
+<td>Start a new container</td>
+</tr>
+<tr>
+<td><code>--name cassandra-demo</code></td>
+<td>Give the container a name</td>
+</tr>
+<tr>
+<td><code>-p 9042:9042</code></td>
+<td>Expose Cassandra’s CQL port</td>
+</tr>
+<tr>
+<td><code>-d</code></td>
+<td>Run in detached/background mode</td>
+</tr>
+<tr>
+<td><code>cassandra:latest</code></td>
+<td>Use the Cassandra Docker image</td>
+</tr>
+</tbody>
+</table>
+<p>Wait about 30–60 seconds for Cassandra to initialize.</p>
+<p>Check logs:</p>
+<pre class="hljs"><code><div>docker logs cassandra-demo
+</div></code></pre>
+<h3 id="connect-with-cqlsh">Connect with <code>cqlsh</code></h3>
+<p>cqlsh is Cassandra’s command-line shell for interacting with Cassandra using CQL. Run (make sure Cassandra has been initialized):</p>
+<pre class="hljs"><code><div>docker exec -it cassandra-demo cqlsh
+</div></code></pre>
+<p>You will see prompt similar to</p>
+<pre class="hljs"><code><div>cqlsh&gt;
+</div></code></pre>
+<p>Exit cqlsh first if needed:</p>
+<pre class="hljs"><code><div>exit;
+</div></code></pre>
+<p>Stop Cassandra:</p>
+<pre class="hljs"><code><div>docker stop cassandra-demo
+</div></code></pre>
+<p>Start it again:</p>
+<pre class="hljs"><code><div>docker start cassandra-demo
+</div></code></pre>
+<p>Remove it completely:</p>
+<pre class="hljs"><code><div>docker rm -f cassandra-demo
+</div></code></pre>
+<h2 id="4-basic-cql-commands">4. Basic CQL Commands</h2>
+<p>Enter cqlsh:</p>
+<pre class="hljs"><code><div>docker exec -it cassandra-demo cqlsh
+</div></code></pre>
+<p>Show Existing Keyspaces</p>
+<pre class="hljs"><code><div>DESCRIBE KEYSPACES;
+</div></code></pre>
+<p>Create a Keyspace</p>
+<pre class="hljs"><code><div>CREATE KEYSPACE music_app
+WITH replication = {
+  'class': 'SimpleStrategy',
+  'replication_factor': 1
+};
+</div></code></pre>
+<p>Use a Keyspace</p>
+<pre class="hljs"><code><div>USE music_app;
+</div></code></pre>
+<p>Create a table</p>
+<pre class="hljs"><code><div>CREATE TABLE songs_by_artist (
+  artist text,
+  release_year int,
+  song_id uuid,
+  title text,
+  album text,
+  genre text,
+  PRIMARY KEY (artist, release_year, song_id)
+);
+</div></code></pre>
+<p>Describe Tables</p>
+<pre class="hljs"><code><div>DESCRIBE TABLES;
+</div></code></pre>
+<pre class="hljs"><code><div>DESCRIBE TABLE songs_by_artist;
+</div></code></pre>
+<p>Insert Data</p>
+<p>Insert into <code>plays_by_user</code></p>
+<pre class="hljs"><code><div>INSERT INTO plays_by_user
+(user_id, played_at, song_id, artist, title, device)
+VALUES
+('u1', '2026-05-01 10:00:00', 's1', 'Taylor Swift', 'Anti-Hero', 'iphone');
+
+INSERT INTO plays_by_user
+(user_id, played_at, song_id, artist, title, device)
+VALUES
+('u1', '2026-05-01 10:05:00', 's2', 'The Weeknd', 'Blinding Lights', 'iphone');
+
+INSERT INTO plays_by_user
+(user_id, played_at, song_id, artist, title, device)
+VALUES
+('u1', '2026-05-01 10:10:00', 's3', 'Billie Eilish', 'bad guy', 'laptop');
+
+INSERT INTO plays_by_user
+(user_id, played_at, song_id, artist, title, device)
+VALUES
+('u2', '2026-05-01 11:00:00', 's1', 'Taylor Swift', 'Anti-Hero', 'android');
+
+INSERT INTO plays_by_user
+(user_id, played_at, song_id, artist, title, device)
+VALUES
+('u2', '2026-05-01 11:15:00', 's4', 'Olivia Rodrigo', 'drivers license', 'tablet');
+
+INSERT INTO plays_by_user
+(user_id, played_at, song_id, artist, title, device)
+VALUES
+('u3', '2026-05-01 12:00:00', 's1', 'Taylor Swift', 'Anti-Hero', 'laptop');
+</div></code></pre>
+<p>Insert into <code>plays_by_song</code></p>
+<pre class="hljs"><code><div>INSERT INTO plays_by_song
+(song_id, played_at, user_id, artist, title, device)
+VALUES
+('s1', '2026-05-01 10:00:00', 'u1', 'Taylor Swift', 'Anti-Hero', 'iphone');
+
+INSERT INTO plays_by_song
+(song_id, played_at, user_id, artist, title, device)
+VALUES
+('s2', '2026-05-01 10:05:00', 'u1', 'The Weeknd', 'Blinding Lights', 'iphone');
+
+INSERT INTO plays_by_song
+(song_id, played_at, user_id, artist, title, device)
+VALUES
+('s3', '2026-05-01 10:10:00', 'u1', 'Billie Eilish', 'bad guy', 'laptop');
+
+INSERT INTO plays_by_song
+(song_id, played_at, user_id, artist, title, device)
+VALUES
+('s1', '2026-05-01 11:00:00', 'u2', 'Taylor Swift', 'Anti-Hero', 'android');
+
+INSERT INTO plays_by_song
+(song_id, played_at, user_id, artist, title, device)
+VALUES
+('s4', '2026-05-01 11:15:00', 'u2', 'Olivia Rodrigo', 'drivers license', 'tablet');
+
+INSERT INTO plays_by_song
+(song_id, played_at, user_id, artist, title, device)
+VALUES
+('s1', '2026-05-01 12:00:00', 'u3', 'Taylor Swift', 'Anti-Hero', 'laptop');
+</div></code></pre>
+<p>Query Data</p>
+<pre class="hljs"><code><div>SELECT *
+FROM plays_by_user
+WHERE user_id = 'u1';
+</div></code></pre>
+<p>Update Data</p>
+<pre class="hljs"><code><div>UPDATE plays_by_user
+SET device = 'iphone'
+WHERE user_id = 'u2'
+  AND played_at = '2026-05-01 11:00:00'
+  AND song_id = 's1';
+</div></code></pre>
+<p>Delete Data</p>
+<pre class="hljs"><code><div>DELETE FROM plays_by_user
+WHERE user_id = 'u2'
+  AND played_at = '2026-05-01 11:15:00'
+  AND song_id = 's4';
+</div></code></pre>
+<p>Drop a Table</p>
+<pre class="hljs"><code><div>DROP TABLE plays_by_user;
+</div></code></pre>
+<p>Drop a Keyspace</p>
+<pre class="hljs"><code><div>DROP KEYSPACE music_app;
+</div></code></pre>
+<h2 id="5-exporting-and-importing-data">5. Exporting and Importing Data</h2>
+<p>Cassandra’s <code>cqlsh</code> supports <code>COPY TO</code> for exporting table data to CSV and COPY FROM for loading CSV data into a table.</p>
+<p>Because we are running Cassandra inside Docker, paths used by <code>COPY</code> refer to <strong>paths inside the container</strong>.</p>
+<p>Export a Table to CSV:</p>
+<pre class="hljs"><code><div>COPY music_app.songs_by_artist
+TO '/tmp/songs_by_artist.csv'
+WITH HEADER = TRUE;
+</div></code></pre>
+<p>Exit <code>cqlsh</code>:</p>
+<pre class="hljs"><code><div>exit;
+</div></code></pre>
+<p>Copy the exported file from the container to your local machine/ ec2 instances:</p>
+<pre class="hljs"><code><div>docker cp cassandra-demo:/tmp/songs_by_artist.csv ./songs_by_artist.csv
+</div></code></pre>
+<h2 id="lab-assignment-music-listening-events-in-cassandra">Lab Assignment: Music Listening Events in Cassandra</h2>
+<p>In this lab, you will design a small Cassandra database for music listening events. You will create two query-oriented tables, load sample data, run queries, update data, delete data, and export results to CSV.</p>
+<h3 id="scenario">Scenario</h3>
+<p>A music streaming app wants to store listening events. Each event contains:</p>
+<ul>
+<li>user_id</li>
+<li>song_id</li>
+<li>artist</li>
+<li>title</li>
+<li>played_at</li>
+<li>device</li>
+</ul>
+<p>The app needs to answer two queries:</p>
+<ol>
+<li>For a given user, what songs did they recently play?</li>
+<li>For a given song, which users recently played it?</li>
+</ol>
+<h4 id="part-a-start-cassandra">Part A: Start Cassandra</h4>
+<p>Start Cassandra using Docker</p>
+<h4 id="part-b-create-a-keyspace">Part B: Create a Keyspace</h4>
+<p>Create a keyspace called <code>music_lab</code>. Then use the keyspace.</p>
+<h4 id="part-c-create-two-tables">Part C: Create Two Tables</h4>
+<p>Create a table for query 1:</p>
+<pre class="hljs"><code><div>CREATE TABLE plays_by_user (
+  user_id text,
+  played_at timestamp,
+  song_id text,
+  artist text,
+  title text,
+  device text,
+  PRIMARY KEY (user_id, played_at, song_id)
+) WITH CLUSTERING ORDER BY (played_at DESC);
+</div></code></pre>
+<p>Create a table for query 2:</p>
+<pre class="hljs"><code><div>CREATE TABLE plays_by_song (
+  song_id text,
+  played_at timestamp,
+  user_id text,
+  artist text,
+  title text,
+  device text,
+  PRIMARY KEY (song_id, played_at, user_id)
+) WITH CLUSTERING ORDER BY (played_at DESC);
+</div></code></pre>
+<h4 id="part-d-insert-sample-data">Part D: Insert Sample Data</h4>
+<p>Insert into <code>plays_by_user</code></p>
+<pre class="hljs"><code><div>INSERT INTO plays_by_user
+(user_id, played_at, song_id, artist, title, device)
+VALUES
+('u1', '2026-05-01 10:00:00', 's1', 'Taylor Swift', 'Anti-Hero', 'iphone');
+
+INSERT INTO plays_by_user
+(user_id, played_at, song_id, artist, title, device)
+VALUES
+('u1', '2026-05-01 10:05:00', 's2', 'The Weeknd', 'Blinding Lights', 'iphone');
+
+INSERT INTO plays_by_user
+(user_id, played_at, song_id, artist, title, device)
+VALUES
+('u1', '2026-05-01 10:10:00', 's3', 'Billie Eilish', 'bad guy', 'laptop');
+
+INSERT INTO plays_by_user
+(user_id, played_at, song_id, artist, title, device)
+VALUES
+('u2', '2026-05-01 11:00:00', 's1', 'Taylor Swift', 'Anti-Hero', 'android');
+
+INSERT INTO plays_by_user
+(user_id, played_at, song_id, artist, title, device)
+VALUES
+('u2', '2026-05-01 11:15:00', 's4', 'Olivia Rodrigo', 'drivers license', 'tablet');
+
+INSERT INTO plays_by_user
+(user_id, played_at, song_id, artist, title, device)
+VALUES
+('u3', '2026-05-01 12:00:00', 's1', 'Taylor Swift', 'Anti-Hero', 'laptop');
+</div></code></pre>
+<p>Insert into <code>plays_by_song</code></p>
+<pre class="hljs"><code><div>INSERT INTO plays_by_song
+(song_id, played_at, user_id, artist, title, device)
+VALUES
+('s1', '2026-05-01 10:00:00', 'u1', 'Taylor Swift', 'Anti-Hero', 'iphone');
+
+INSERT INTO plays_by_song
+(song_id, played_at, user_id, artist, title, device)
+VALUES
+('s2', '2026-05-01 10:05:00', 'u1', 'The Weeknd', 'Blinding Lights', 'iphone');
+
+INSERT INTO plays_by_song
+(song_id, played_at, user_id, artist, title, device)
+VALUES
+('s3', '2026-05-01 10:10:00', 'u1', 'Billie Eilish', 'bad guy', 'laptop');
+
+INSERT INTO plays_by_song
+(song_id, played_at, user_id, artist, title, device)
+VALUES
+('s1', '2026-05-01 11:00:00', 'u2', 'Taylor Swift', 'Anti-Hero', 'android');
+
+INSERT INTO plays_by_song
+(song_id, played_at, user_id, artist, title, device)
+VALUES
+('s4', '2026-05-01 11:15:00', 'u2', 'Olivia Rodrigo', 'drivers license', 'tablet');
+
+INSERT INTO plays_by_song
+(song_id, played_at, user_id, artist, title, device)
+VALUES
+('s1', '2026-05-01 12:00:00', 'u3', 'Taylor Swift', 'Anti-Hero', 'laptop');
+</div></code></pre>
+<h4 id="part-e-run-queries">Part E: Run Queries</h4>
+<ul>
+<li>
+<p>Query 1: return all plays by user <code>u1</code>, ordered by <code>played_at</code> descending.</p>
+</li>
+<li>
+<p>Query 2: all users who played song <code>s1</code>, ordered by <code>played_at</code> descending.</p>
+</li>
+<li>
+<p>Query 3: all the plays of user <code>u1</code> happened after `2026-05-01 10:05:00'</p>
+</li>
+</ul>
+<h4 id="part-f-export-data">Part F: Export Data</h4>
+<p>Export <code>plays_by_user</code> and <code>plays_by_song</code></p>
+<h3 id="part-g-questions-for-submission">Part G: Questions for Submission</h3>
+<p>Submit a short Markdown file answering the following questions:</p>
+<ol>
+<li>What is the partition key of plays_by_user?</li>
+<li>What are the clustering columns of plays_by_user?</li>
+<li>Why did we create both plays_by_user and plays_by_song instead of using one table?</li>
+<li>What happens if you try to query plays_by_user by song_id only?</li>
+<li>Why is data duplication common in Cassandra?</li>
+<li>Include a screenshot or copied output of:
+- SELECT * FROM plays_by_user WHERE user_id = 'u1';
+- SELECT * FROM plays_by_song WHERE song_id = 's1';</li>
+<li>Submit the two exported CSV files:
+- plays_by_user.csv
+- plays_by_song.csv</li>
+</ol>
+<h3 id="cleanup">Cleanup</h3>
+<p>After finishing the lab, stop and remove the container:</p>
+<pre class="hljs"><code><div>docker rm -f cassandra-lab
+</div></code></pre>
+<h2 id="appendix-common-cassandra--cql-commands-cheat-sheet">Appendix: Common Cassandra / CQL Commands Cheat Sheet</h2>
+<h3 id="docker-commands">Docker Commands</h3>
+<pre class="hljs"><code><div>docker pull cassandra:latest
+docker run --name cassandra-demo -p 9042:9042 -d cassandra:latest
+docker logs cassandra-demo
+docker exec -it cassandra-demo cqlsh
+docker exec -it cassandra-demo nodetool status
+docker stop cassandra-demo
+docker start cassandra-demo
+docker rm -f cassandra-demo
+</div></code></pre>
+<h3 id="keyspace-commands">Keyspace Commands</h3>
+<pre class="hljs"><code><div>DESCRIBE KEYSPACES;
+
+CREATE KEYSPACE keyspace_name
+WITH replication = {
+  'class': 'SimpleStrategy',
+  'replication_factor': 1
+};
+
+USE keyspace_name;
+
+DROP KEYSPACE keyspace_name;
+</div></code></pre>
+<h3 id="table-commands">Table Commands</h3>
+<pre class="hljs"><code><div>DESCRIBE TABLES;
+
+DESCRIBE TABLE table_name;
+
+CREATE TABLE table_name (
+  id text PRIMARY KEY,
+  value text
+);
+
+DROP TABLE table_name;
+
+TRUNCATE table_name;
+</div></code></pre>
+<h3 id="data-commands">Data Commands</h3>
+<pre class="hljs"><code><div>INSERT INTO table_name (id, value)
+VALUES ('1', 'hello');
+
+SELECT * FROM table_name
+WHERE id = '1';
+
+UPDATE table_name
+SET value = 'updated'
+WHERE id = '1';
+
+DELETE FROM table_name
+WHERE id = '1';
+</div></code></pre>
+<h3 id="export--import-commands">Export / Import Commands</h3>
+<pre class="hljs"><code><div>COPY table_name TO '/tmp/output.csv' WITH HEADER = TRUE;
+
+COPY table_name FROM '/tmp/input.csv' WITH HEADER = TRUE;
+</div></code></pre>
+
+</body>
+</html>
