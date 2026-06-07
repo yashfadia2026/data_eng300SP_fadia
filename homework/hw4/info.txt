@@ -1,0 +1,9 @@
+Group Members:
+Yash Fadia
+Margaret Silva
+
+MWAA Environment:
+de300-airflow-yash-margaret
+
+S3 Bucket:
+de300-airflow-yash-margaret
